@@ -1,0 +1,14 @@
+.app {
+    display: flex;
+  }
+  
+  .main-content {
+    margin-left: 220px;  /* Sidebar width + margin */
+    padding: 20px;
+    flex-grow: 1;
+  }
+  
+  h1 {
+    text-align: center;
+  }
+  
