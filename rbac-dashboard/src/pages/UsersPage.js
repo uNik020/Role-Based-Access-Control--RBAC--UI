@@ -55,7 +55,7 @@ const UsersPage = () => {
         <h2 className="text-2xl font-bold mb-4 text-center">Users Management</h2>
 
         {/* Add/Edit User Section */}
-        <div className="bg-white dark:bg-gray-800 p-4 rounded shadow mb-6">
+        <div className="bg-white dark:bg-gray-800 p-4 rounded shadow-xl mb-6">
           <h3 className="text-lg font-semibold mb-4">
             {editingUser ? 'Edit User' : 'Add New User'}
           </h3>
