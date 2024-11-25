@@ -5,7 +5,8 @@ import '../styles/users.css';
 const UsersPage = () => {
   const [users, setUsers] = useState(mockUsers);
   const [newUser, setNewUser] = useState({ name: '', email: '', role: '', status: 'Active' });
-  const [editingUser, setEditingUser] = useState(null); // Holds the user being edited
+  const [editingUser, setEditingUser] = useState(null);
+  const [errors, setErrors] = useState({}); // New state for validation errors
 
   // Function to handle form input changes
   const handleInputChange = (e) => {
@@ -17,11 +18,63 @@ const UsersPage = () => {
     }
   };
 
+  // Validation function
+  const validateUser = (user) => {
+    const newErrors = {};
+    // Validate Name
+    if (!user.name.trim()) {
+      newErrors.name = "Name is required.";
+    } else if (!/^[A-Za-z\s]+$/.test(user.name)) { // Regex to allow only letters and spaces
+      newErrors.name = "Name can only contain letters and spaces.";
+    }
+    // Validate Email (Basic validation)
+    if (!user.email.trim()) {
+      newErrors.email = "Email is required.";
+    } else if (!/\S+@\S+\.\S+/.test(user.email)) {
+      newErrors.email = "Email is not valid.";
+    }
+    // Validate Role
+    if (!user.role.trim()) {
+      newErrors.role = "Role is required.";
+    } else if (!/^[A-Za-z\s]+$/.test(user.role)) { // Regex to allow only letters and spaces
+      newErrors.role = "Role can only contain letters and spaces.";
+    }
+    return newErrors;
+  };
+
   // Function to add a new user
   const handleAddUser = () => {
+    const validationErrors = validateUser(newUser);
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors); // Set errors if validation fails
+      return; // Stop execution if validation fails
+    }
+
     const id = users.length ? users[users.length - 1].id + 1 : 1;
     setUsers([...users, { ...newUser, id }]);
     setNewUser({ name: '', email: '', role: '', status: 'Active' }); // Reset form
+    setErrors({}); // Clear errors after success
+  };
+
+  // Function to save the edited user
+  const handleSaveEdit = () => {
+    const validationErrors = validateUser(editingUser);
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors); // Set errors if validation fails
+      return;
+    }
+
+    setUsers(
+      users.map((user) => (user.id === editingUser.id ? editingUser : user))
+    );
+    setEditingUser(null); // Exit editing mode
+    setErrors({}); // Clear errors after success
+  };
+
+  // Function to cancel editing
+  const handleCancelEdit = () => {
+    setEditingUser(null); // Clear editing state
+    setErrors({}); // Clear errors when canceling
   };
 
   // Function to delete a user
@@ -29,28 +82,8 @@ const UsersPage = () => {
     setUsers(users.filter((user) => user.id !== id));
   };
 
-  // Function to handle edit button click
-  const handleEditClick = (user) => {
-    setEditingUser({ ...user }); // Load the user into editing state
-  };
-
-  // Function to save the edited user
-  const handleSaveEdit = () => {
-    setUsers(
-      users.map((user) =>
-        user.id === editingUser.id ? editingUser : user
-      )
-    );
-    setEditingUser(null); // Exit editing mode
-  };
-
-  // Function to cancel editing
-  const handleCancelEdit = () => {
-    setEditingUser(null); // Clear editing state
-  };
-
   return (
-    <div className="min-h-screen rounded bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200">
+    <div className="min-h-screen rounded-xl bg-gray-300 dark:bg-gray-900 text-gray-800 dark:text-gray-200">
       <div className="max-w-7xl mx-auto p-4">
         <h2 className="text-2xl font-bold mb-4 text-center">Users Management</h2>
 
@@ -60,53 +93,67 @@ const UsersPage = () => {
             {editingUser ? 'Edit User' : 'Add New User'}
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <input
-              type="text"
-              placeholder="Name"
-              name="name"
-              value={editingUser ? editingUser.name : newUser.name}
-              onChange={handleInputChange}
-              className="p-2 border rounded focus:outline-none focus:ring focus:ring-blue-300"
-            />
-            <input
-              type="email"
-              placeholder="Email"
-              name="email"
-              value={editingUser ? editingUser.email : newUser.email}
-              onChange={handleInputChange}
-              className="p-2 border rounded focus:outline-none focus:ring focus:ring-blue-300"
-            />
-            <input
-              type="text"
-              placeholder="Role"
-              name="role"
-              value={editingUser ? editingUser.role : newUser.role}
-              onChange={handleInputChange}
-              className="p-2 border rounded focus:outline-none focus:ring focus:ring-blue-300"
-            />
-            {editingUser ? (
-              <>
+            <div>
+              <input
+                type="text"
+                placeholder="Name"
+                name="name"
+                value={editingUser ? editingUser.name : newUser.name}
+                onChange={handleInputChange}
+                className="p-2 border rounded focus:outline-none focus:ring focus:ring-blue-300"
+              />
+              {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
+            </div>
+
+            <div>
+              <input
+                type="email"
+                placeholder="Email"
+                name="email"
+                value={editingUser ? editingUser.email : newUser.email}
+                onChange={handleInputChange}
+                className="p-2 border rounded focus:outline-none focus:ring focus:ring-blue-300"
+              />
+              {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
+            </div>
+
+            <div>
+              <input
+                type="text"
+                placeholder="Role"
+                name="role"
+                value={editingUser ? editingUser.role : newUser.role}
+                onChange={handleInputChange}
+                className="p-2 border rounded focus:outline-none focus:ring focus:ring-blue-300"
+              />
+              {errors.role && <p className="text-red-500 text-sm">{errors.role}</p>}
+            </div>
+
+            <div className="flex space-x-2">
+              {editingUser ? (
+                <>
+                  <button
+                    onClick={handleSaveEdit}
+                    className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition"
+                  >
+                    Save Changes
+                  </button>
+                  <button
+                    onClick={handleCancelEdit}
+                    className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 transition"
+                  >
+                    Cancel
+                  </button>
+                </>
+              ) : (
                 <button
-                  onClick={handleSaveEdit}
-                  className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition"
+                  onClick={handleAddUser}
+                  className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
                 >
-                  Save Changes
+                  Add User
                 </button>
-                <button
-                  onClick={handleCancelEdit}
-                  className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 transition"
-                >
-                  Cancel
-                </button>
-              </>
-            ) : (
-              <button
-                onClick={handleAddUser}
-                className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
-              >
-                Add User
-              </button>
-            )}
+              )}
+            </div>
           </div>
         </div>
 
