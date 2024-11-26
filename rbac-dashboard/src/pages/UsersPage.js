@@ -83,7 +83,7 @@ const UsersPage = () => {
   };
 
   return (
-    <div className="min-h-screen rounded-xl bg-gray-300 dark:bg-gray-900 text-gray-800 dark:text-gray-200">
+    <div className="min-h-screen rounded-xl mx-10 bg-gray-300 dark:bg-gray-900 text-gray-800 dark:text-gray-200">
       <div className="max-w-7xl mx-auto p-4">
         <h2 className="text-2xl font-bold mb-4 text-center">Users Management</h2>
 
@@ -181,7 +181,7 @@ const UsersPage = () => {
                   <td className="px-4 py-2 border border-gray-300 dark:border-gray-700">
                     <button
                       onClick={() => setEditingUser(user)}
-                      className="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600 transition"
+                      className="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-gray-600 transition"
                     >
                       Edit
                     </button>
