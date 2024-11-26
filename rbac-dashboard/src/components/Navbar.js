@@ -12,7 +12,7 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
   const toggleProfileMenu = () => setIsProfileMenuOpen(!isProfileMenuOpen);
 
   return (
-    <nav className="bg-gradient-to-r from-purple-700 via-indigo-600 to-blue-500 text-white shadow-lg fixed w-full top-0 l-0 h-14 z-10">
+    <nav className="bg-gradient-to-r from-blue-900 via-indigo-320 to-blue-600 text-white dark:from-slate-800 dark:via-cyan-600 dark:to-slate-700 fixed w-full top-0 l-0 h-14 z-10">
       <div className="max-w-6xl mx-auto px-6 py-2 flex justify-between items-center">
         {/* Logo */}
         <div className="text-2xl font-bold">

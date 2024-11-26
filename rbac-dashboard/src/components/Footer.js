@@ -3,15 +3,16 @@ import { FaGithub, FaLinkedin, FaEnvelope } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <footer className="bg-gradient-to-r from-purple-700 via-indigo-600 to-blue-500 text-white dark:from-gray-800 dark:via-gray-700 dark:to-gray-900">
+    <footer className="z-10 bg-gradient-to-r from-blue-900 via-indigo-320 to-blue-600 text-white dark:from-slate-800 dark:via-cyan-800 dark:to-slate-700">
       <div className="w-full px-6 py-8 flex flex-col sm:flex-row justify-between items-center space-y-6 sm:space-y-0">
         {/* App Description */}
         <div className="text-center sm:text-left">
           <h3 className="text-lg font-bold mb-2">About This App</h3>
           <p className="text-sm">
+            This is an assignment of VRV Security for the Role of Frontend Developer.
             This RBAC Dashboard helps manage users, roles, and permissions with ease. 
-            A perfect solution for role-based access control in web applications.
           </p>
+          <h6>Made by: Nikhil N. Shekhar</h6>
         </div>
 
         {/* Contact Information */}
@@ -20,7 +21,7 @@ const Footer = () => {
           <div className="flex space-x-4">
             {/* Email */}
             <a
-              href="mailto:your.email@example.com"
+              href="mailto:9to5withnikhil@gmail.com"
               className="text-white hover:text-yellow-300 transition duration-300"
               aria-label="Email"
             >
@@ -28,7 +29,7 @@ const Footer = () => {
             </a>
             {/* LinkedIn */}
             <a
-              href="https://www.linkedin.com/in/your-profile"
+              href="https://www.linkedin.com/in/nikhil-s-a13543228/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-white hover:text-blue-400 transition duration-300"
@@ -38,7 +39,7 @@ const Footer = () => {
             </a>
             {/* GitHub */}
             <a
-              href="https://github.com/your-profile"
+              href="https://github.com/uNik020"
               target="_blank"
               rel="noopener noreferrer"
               className="text-white hover:text-gray-400 transition duration-300"
