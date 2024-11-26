@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
 import Navbar from "./components/Navbar";
+import Footer from "./components/Footer"; // Import Footer
 import UsersPage from "./pages/UsersPage";
 import RolesPage from "./pages/RolesPage";
 import "./App.css";
@@ -16,10 +17,13 @@ function App() {
 
   return (
     <div className={`app subpixel-antialiased ${darkMode ? "dark" : ""}`}>
+      {/* Navbar */}
       <Navbar darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
+
+      {/* Main Content */}
       <div className="flex w-full h-auto bg-gray-300 dark:bg-gray-700 text-gray-800 dark:text-gray-200">
         <Sidebar />
-        <div className="ml-52 p-4 my-14 flex-1  bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200">
+        <div className="ml-52 p-4 my-14 flex-1 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200">
           <h1 className="font-sans text-zinc-950 dark:text-white text-4xl font-bold mb-4 text-center">
             RBAC Dashboard
           </h1>
@@ -29,6 +33,9 @@ function App() {
           </Routes>
         </div>
       </div>
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 }
