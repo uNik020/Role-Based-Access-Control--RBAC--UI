@@ -187,7 +187,7 @@ const UsersPage = () => {
                     </button>
                     <button
                       onClick={() => handleDelete(user.id)}
-                      className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition"
+                      className="mx-3 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition"
                     >
                       Delete
                     </button>

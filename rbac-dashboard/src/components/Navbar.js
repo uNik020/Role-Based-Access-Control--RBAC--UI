@@ -30,7 +30,7 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
           </button>
 
           {/* Profile Icon with Dropdown Menu */}
-          <div className="relative hidden lg:block">
+          <div className="relative hidden lg:block" title="This is for decoration only.">
             <button
               onClick={toggleProfileMenu}
               className="p-2 rounded-full hover:bg-gray-700 dark:hover:bg-gray-400 transition duration-300"
@@ -68,7 +68,7 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
       {/* Mobile Menu */}
       {isMenuOpen && (
         <div className="lg:hidden bg-gray-800 bg-opacity-95 absolute top-0 left-0 w-full h-screen flex items-center justify-center z-40">
-          <div className="text-white text-lg space-y-4 text-center">
+          <div className="text-white text-lg space-y-4 text-center" >
             <span className="block py-2 px-4 hover:bg-gray-700 rounded cursor-pointer">
               Profile
             </span>
